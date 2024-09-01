@@ -1,3 +1,1 @@
-com\mycompany\hadoop_test\Hadoop_test$RankPasswordMapper.class
-com\mycompany\hadoop_test\Hadoop_test$CountReducer.class
-com\mycompany\hadoop_test\Hadoop_test.class
+com\mycompany\hadoop_test\HadoopTest.class

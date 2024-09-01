@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <exec.mainClass>com.mycompany.hadoop_test.Hadoop_test</exec.mainClass>
+        <exec.mainClass>com.mycompany.hadoop_test.HadoopTest</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -38,23 +38,39 @@
             <version>3.3.0</version>
         </dependency>
 
-        <!-- Dependencias adicionales -->
+        <!-- Dependencia de Hadoop Client -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
             <version>3.3.0</version>
         </dependency>
 
+        <!-- Dependencia para la API de logs SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.30</version>
         </dependency>
 
+        <!-- Dependencia para la implementación de SLF4J con Log4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.30</version>
+        </dependency>
+
+        <!-- Dependencia para trabajar con archivos de configuración como hadoop-core.xml -->
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
+        </dependency>
+
+        <!-- Dependencia para manejar excepciones de Hadoop -->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-auth</artifactId>
+            <version>3.3.0</version>
         </dependency>
     </dependencies>
 
@@ -69,15 +85,18 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <configuration>
-                    <mainClass>${exec.mainClass}</mainClass>
+                    <mainClass>com.mycompany.hadoop_test.HadoopTest</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
-    <name>hadoop_proyect</name>
+
+    <name>hadoop_test</name>
 </project>
