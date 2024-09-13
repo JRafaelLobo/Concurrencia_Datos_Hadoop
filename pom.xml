@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mycompany</groupId>
-    <artifactId>hadoop_test</artifactId>
+    <artifactId>Word_count</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -21,28 +21,28 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
-            <version>3.3.0</version>
+            <version>3.3.5</version>
         </dependency>
 
         <!-- Dependencia de Hadoop HDFS -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>
-            <version>3.3.0</version>
+            <version>3.3.5</version>
         </dependency>
 
         <!-- Dependencia de Hadoop MapReduce -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-mapreduce-client-core</artifactId>
-            <version>3.3.0</version>
+            <version>3.3.5</version>
         </dependency>
 
         <!-- Dependencia de Hadoop Client -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
-            <version>3.3.0</version>
+            <version>3.3.5</version>
         </dependency>
 
         <!-- Dependencia para la API de logs SLF4J -->
@@ -70,7 +70,7 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-auth</artifactId>
-            <version>3.3.0</version>
+            <version>3.3.5</version>
         </dependency>
     </dependencies>
 
@@ -95,8 +95,20 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.mycompany.hadoop_test.HadoopTest</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
-    <name>hadoop_test</name>
+    <name>Word_count</name>
 </project>

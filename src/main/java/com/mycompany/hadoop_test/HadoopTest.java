@@ -18,33 +18,52 @@ import java.net.URI;
 public class HadoopTest {
 
     public static void main(String[] args) {
-        // Configuración de Hadoop
         JobConf conf = new JobConf(HadoopTest.class);
-        conf.set("fs.defaultFS", "hdfs://104.198.29.159:9000");
+        conf.set("fs.defaultFS", "hdfs://localhost:9000");
 
         try {
-            // Crear un cliente para el sistema de archivos
-            FileSystem fs = FileSystem.get(new URI("hdfs://104.198.29.159:9000"), conf);
-
-            // Verificar si el directorio raíz está accesible
+            if (args.length != 4) {
+                System.out.println("Error de parametros de entrada porfavor intentar");
+                System.out.println("-------------------------------");
+                System.out.println("hadoop jar target/hadoop_test-1.0-SNAPSHOT.jar "
+                        + "com.mycompany.hadoop_test.HadoopTest "
+                        + "<input> "
+                        + "<output> "
+                        + "<cantidad de palabras a analizar(1-2)> "
+                        + "\n------------------------------");
+                return;
+            }
+            FileSystem fs = FileSystem.get(new URI("hdfs://localhost:9000"), conf);
             boolean exists = fs.exists(new Path("/"));
             System.out.println("HDFS está accesible: " + exists);
-
-            // Cerrar el cliente de archivos
+            Path outputPath = new Path(args[2]);
+            Path inputPath = new Path(args[1]);
             fs.close();
 
-            // Configurar y ejecutar el trabajo MapReduce
+            System.out.println("--------------------------");
+            System.out.println("Directorio de entrada: " + inputPath);
+            System.out.println("Directorio de salida: " + outputPath);
+            System.out.println("--------------------------");
+
             conf.setJobName("WordCount");
             conf.setOutputKeyClass(Text.class);
             conf.setOutputValueClass(IntWritable.class);
-            conf.setMapperClass(WC_Mapper.class);
-            conf.setCombinerClass(WC_Reducer.class);
-            conf.setReducerClass(WC_Reducer.class);
+
+            if (Integer.valueOf(args[3]) == 1) {
+                conf.setMapperClass(WC_Mapper.class);
+                conf.setCombinerClass(WC_Reducer.class);
+                conf.setReducerClass(WC_Reducer.class);
+            } else {
+                conf.setMapperClass(BigramMapper.class);
+                conf.setCombinerClass(BigramReducer.class);
+                conf.setReducerClass(BigramReducer.class);
+            }
+
             conf.setInputFormat(TextInputFormat.class);
             conf.setOutputFormat(TextOutputFormat.class);
 
-            FileInputFormat.setInputPaths(conf, new Path(args[0]));
-            FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+            FileInputFormat.setInputPaths(conf, inputPath);
+            FileOutputFormat.setOutputPath(conf, outputPath);
 
             JobClient.runJob(conf);
 

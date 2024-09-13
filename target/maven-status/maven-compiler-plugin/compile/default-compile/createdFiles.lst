@@ -1,3 +1,5 @@
-com\mycompany\hadoop_test\WC_Mapper.class
-com\mycompany\hadoop_test\HadoopTest.class
+com\mycompany\hadoop_test\BigramMapper.class
 com\mycompany\hadoop_test\WC_Reducer.class
+com\mycompany\hadoop_test\WC_Mapper.class
+com\mycompany\hadoop_test\BigramReducer.class
+com\mycompany\hadoop_test\HadoopTest.class
