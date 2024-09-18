@@ -20,9 +20,16 @@ public class BigramMapper extends MapReduceBase implements Mapper<LongWritable, 
         String[] words = line.split("\\s+");
 
         for (int i = 0; i < words.length - 1; i++) {
-            String wordPair = words[i] + " " + words[i + 1];
-            bigram.set(wordPair);
-            output.collect(bigram, one);
+            for (int j = i + 1; j < words.length - 1; j++) {
+                String word1 = words[i];
+                String word2 = words[j];
+                if (word1.compareTo(word2) < 0) {
+                    bigram.set(word1 + " " + word2);
+                } else {
+                    bigram.set(word2 + " " + word1);
+                }
+                output.collect(bigram, one);
+            }
         }
     }
 }
